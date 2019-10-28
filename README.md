@@ -9,3 +9,4 @@ To Do:
 - Change the fire-rate of the gun
 - Add Research
 - Make Artillery Research depend from Howitzer research
+- Change Howitzer-shells max stack size
