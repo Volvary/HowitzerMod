@@ -23,18 +23,25 @@ end
 
 
 howitzer_cannon = copyPrototype("ammo-turret","gun-turret","howitzer-cannon")
-howitzer_cannon.attack_parameters.ammo_category = "artillery-shell"
-howitzer_cannon.min_range = 20
-howitzer_cannon.range = 40
-howitzer_cannon.turn_range = 0.3333333333333333
+howitzer_cannon.attack_parameters.ammo_category = "howitzer-shell"
+howitzer_cannon.attack_parameters.min_range = 25
+howitzer_cannon.attack_parameters.range = 50
+howitzer_cannon.attack_parameters.cooldown = 5
+howitzer_cannon.attack_parameters.turn_range = 0.3333333333333333
 
 howitzer_item = copyPrototype("item","gun-turret","howitzer-cannon")
 
 howitzer_rounds = copyPrototype("ammo", "artillery-shell", "howitzer-shell")
 howitzer_rounds.max_range = 40
 howitzer_rounds.min_range = 20
+howitzer_rounds.ammo_type.category = "howitzer-shell"
+howitzer_rounds.icon = "__base__/graphics/icons/cannon-shell.png"
 
 data:extend({
+  {
+    type = "ammo-category",
+    name = "howitzer-shell"
+  },
   {
     type = "recipe",
     name = "howitzer-turret-recipe",
