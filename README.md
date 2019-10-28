@@ -7,3 +7,5 @@ To Do:
 - Move Howitzer-shells to be in their own category
 - Correct the min_range of the gun
 - Change the fire-rate of the gun
+- Add Research
+- Make Artillery Research depend from Howitzer research
