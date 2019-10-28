@@ -1,0 +1,10 @@
+{
+	"name":"Howitzer",
+	"author":"volvary",
+	"version":"0.0.1",
+	"title":"Howitzer Cannon",
+	"homepage":"",
+	"description":"Medium-range base defense, available as an in-between until you unlock artillery.",
+	"dependencies": ["base"],
+  "factorio_version": "0.17"
+}
