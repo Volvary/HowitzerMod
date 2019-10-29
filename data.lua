@@ -26,7 +26,8 @@ howitzer_cannon = copyPrototype("ammo-turret","gun-turret","howitzer-cannon")
 howitzer_cannon.attack_parameters.ammo_category = "howitzer-shell"
 howitzer_cannon.attack_parameters.min_range = 25
 howitzer_cannon.attack_parameters.range = 50
-howitzer_cannon.attack_parameters.turn_range = 0.3333333333333333
+howitzer_cannon.attack_parameters.turn_range = 0.3
+howitzer_cannon.attack_parameters.cooldown = 600
 howitzer_cannon.turret_base_has_direction = true
 
 howitzer_item = copyPrototype("item","gun-turret","howitzer-cannon")
@@ -58,7 +59,7 @@ local howitzer_rounds = {
       stack_size = 20,
 	  stackable = true,
       subgroup = "ammo",
-	  min_range = 20,
+	  min_range = 25,
 	  max_range = 40,
     }
 	
