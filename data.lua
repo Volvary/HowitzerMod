@@ -37,6 +37,52 @@ howitzer_rounds.min_range = 20
 howitzer_rounds.ammo_type.category = "howitzer-shell"
 howitzer_rounds.icon = "__base__/graphics/icons/cannon-shell.png"
 
+--Add the Howitzer technology to the requirements of the Artillery, to incentivize players to use it as an intermediate.
+local artytechpre = data.raw["technology"]["artillery"].prerequisites
+artytechpre[#artytechpre+1] = "howitzer-manufacture"
+
+local howitzer_technology = {
+	type = "technology",
+	name = "howitzer-manufacture",
+	icon = "__base__/graphics/technology/artillery.png",
+	icon_size = 128,
+	effects = {
+		{
+			recipe = "howitzer-turret-recipe",
+			type = "unlock-recipe"
+		},
+		{
+			recipe = "howitzer-shell",
+			type = "unlock-recipe"
+		},
+	},
+	prerequisites = {
+		"military-3",
+	},
+	unit = {
+        count = 300,
+        ingredients = {
+          {
+            "automation-science-pack",
+            1
+          },
+          {
+            "logistic-science-pack",
+            1
+          },
+          {
+            "military-science-pack",
+            1
+          },
+          {
+            "chemical-science-pack",
+            1
+          }
+        },
+        time = 60
+    },
+}
+
 data:extend({
   {
     type = "ammo-category",
@@ -72,5 +118,6 @@ data:extend({
   howitzer_cannon,
   howitzer_item,
   howitzer_rounds,
+  howitzer_technology,
 }
 )
