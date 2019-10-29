@@ -26,16 +26,137 @@ howitzer_cannon = copyPrototype("ammo-turret","gun-turret","howitzer-cannon")
 howitzer_cannon.attack_parameters.ammo_category = "howitzer-shell"
 howitzer_cannon.attack_parameters.min_range = 25
 howitzer_cannon.attack_parameters.range = 50
-howitzer_cannon.attack_parameters.cooldown = 5
 howitzer_cannon.attack_parameters.turn_range = 0.3333333333333333
+howitzer_cannon.turret_base_has_direction = true
 
 howitzer_item = copyPrototype("item","gun-turret","howitzer-cannon")
 
-howitzer_rounds = copyPrototype("ammo", "artillery-shell", "howitzer-shell")
-howitzer_rounds.max_range = 40
-howitzer_rounds.min_range = 20
-howitzer_rounds.ammo_type.category = "howitzer-shell"
-howitzer_rounds.icon = "__base__/graphics/icons/cannon-shell.png"
+local howitzer_rounds = {
+      type = "ammo",
+      ammo_type = {
+        action = {
+          action_delivery = {
+            direction_deviation = 0,
+            projectile = "howitzer-projectile",
+            range_deviation = 0,
+            source_effects = {
+              entity_name = "artillery-cannon-muzzle-flash",
+              type = "create-explosion"
+            },
+            starting_speed = 1,
+            type = "artillery"
+          },
+          type = "direct"
+        },
+        category = "howitzer-shell",
+        target_type = "position"
+      },
+      icon = "__base__/graphics/icons/cannon-shell.png",
+      icon_size = 32,
+      name = "howitzer-shell",
+      order = "d[explosive-cannon-shell]-d[artillery]",
+      stack_size = 20,
+	  stackable = true,
+      subgroup = "ammo",
+	  min_range = 20,
+	  max_range = 40,
+    }
+	
+local howitzer_projectile = {
+      action = {
+        action_delivery = {
+          target_effects = {
+            {
+              action = {
+                action_delivery = {
+                  target_effects = {
+                    {
+                      damage = {
+                        amount = 150,
+                        type = "piercing"
+                      },
+                      type = "damage"
+                    },
+                    {
+                      damage = {
+                        amount = 300,
+                        type = "explosion"
+                      },
+                      type = "damage"
+                    }
+                  },
+                  type = "instant"
+                },
+                radius = 4,
+                type = "area"
+              },
+              type = "nested-result"
+            },
+            {
+              initial_height = 0,
+              max_radius = 3.5,
+              offset_deviation = {
+                {
+                  -4,
+                  -4
+                },
+                {
+                  4,
+                  4
+                }
+              },
+              repeat_count = 240,
+              smoke_name = "artillery-smoke",
+              speed_from_center = 0.05,
+              speed_from_center_deviation = 0.005,
+              type = "create-trivial-smoke"
+            },
+            {
+              entity_name = "big-explosion",
+              type = "create-entity"
+            }
+          },
+          type = "instant"
+        },
+        type = "direct"
+      },
+      final_action = {
+        action_delivery = {
+          target_effects = {
+            {
+              check_buildability = true,
+              entity_name = "small-scorchmark",
+              type = "create-entity"
+            }
+          },
+          type = "instant"
+        },
+        type = "direct"
+      },
+      flags = {
+        "not-on-map"
+      },
+      height_from_ground = 4.375,
+      map_color = {
+        b = 0,
+        g = 1,
+        r = 1
+      },
+      name = "howitzer-projectile",
+      picture = {
+        filename = "__base__/graphics/entity/artillery-projectile/hr-shell.png",
+        height = 64,
+        scale = 0.5,
+        width = 64
+      },
+      shadow = {
+        filename = "__base__/graphics/entity/artillery-projectile/hr-shell-shadow.png",
+        height = 64,
+        scale = 0.5,
+        width = 64
+      },
+      type = "howitzer-projectile"
+    }
 
 --Add the Howitzer technology to the requirements of the Artillery, to incentivize players to use it as an intermediate.
 local artytechpre = data.raw["technology"]["artillery"].prerequisites
@@ -119,5 +240,6 @@ data:extend({
   howitzer_item,
   howitzer_rounds,
   howitzer_technology,
+  howitzer_projectile,
 }
 )
