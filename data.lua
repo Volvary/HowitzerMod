@@ -73,7 +73,7 @@ local howitzer_projectile = {
                     {
                       damage = {
                         amount = 150,
-                        type = "piercing"
+                        type = "physical"
                       },
                       type = "damage"
                     },
@@ -155,7 +155,8 @@ local howitzer_projectile = {
         scale = 0.5,
         width = 64
       },
-      type = "howitzer-projectile"
+	  reveal_map = false,
+      type = "artillery-projectile"
     }
 
 --Add the Howitzer technology to the requirements of the Artillery, to incentivize players to use it as an intermediate.
