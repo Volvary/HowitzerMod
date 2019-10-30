@@ -26,8 +26,8 @@ howitzer_cannon = copyPrototype("ammo-turret","gun-turret","howitzer-cannon")
 howitzer_cannon.attack_parameters.ammo_category = "howitzer-shell"
 howitzer_cannon.attack_parameters.min_range = 25
 howitzer_cannon.attack_parameters.range = 50
-howitzer_cannon.attack_parameters.turn_range = 0.3
-howitzer_cannon.attack_parameters.cooldown = 600
+howitzer_cannon.attack_parameters.turn_range = 0.25
+howitzer_cannon.attack_parameters.cooldown = 450
 howitzer_cannon.turret_base_has_direction = true
 
 howitzer_item = copyPrototype("item","gun-turret","howitzer-cannon")
@@ -73,14 +73,14 @@ local howitzer_projectile = {
                   target_effects = {
                     {
                       damage = {
-                        amount = 150,
+                        amount = 100,
                         type = "physical"
                       },
                       type = "damage"
                     },
                     {
                       damage = {
-                        amount = 300,
+                        amount = 200,
                         type = "explosion"
                       },
                       type = "damage"
@@ -164,6 +164,13 @@ local howitzer_projectile = {
 local artytechpre = data.raw["technology"]["artillery"].prerequisites
 artytechpre[#artytechpre+1] = "howitzer-manufacture"
 
+table.insert(data.raw.technology["physical-projectile-damage-5"].effects,{type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 0.9})
+table.insert(data.raw.technology["physical-projectile-damage-6"].effects,{type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 1.3})
+table.insert(data.raw.technology["physical-projectile-damage-7"].effects,{type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 1.0})
+
+table.insert(data.raw.technology["weapon-shooting-speed-5"].effects,{type = "gun-speed", ammo_category = "howitzer-shell", modifier = 0.8})
+table.insert(data.raw.technology["weapon-shooting-speed-6"].effects,{type = "gun-speed", ammo_category = "howitzer-shell", modifier = 1.5})
+
 local howitzer_technology = {
 	type = "technology",
 	name = "howitzer-manufacture",
@@ -231,12 +238,13 @@ data:extend({
     enabled = "true",
     ingredients =
     {
-      {"explosives", 3},
+      {"explosives", 2},
       {"plastic-bar", 2},
-      {"steel-plate", 4},
+      {"steel-plate", 2},
     },
     energy_required = 8,
     result="howitzer-shell",
+	result_count = 3,
   },
   howitzer_cannon,
   howitzer_item,
