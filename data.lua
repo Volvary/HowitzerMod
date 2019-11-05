@@ -73,14 +73,14 @@ local howitzer_projectile = {
                   target_effects = {
                     {
                       damage = {
-                        amount = 100,
+                        amount = 50,
                         type = "physical"
                       },
                       type = "damage"
                     },
                     {
                       damage = {
-                        amount = 200,
+                        amount = 150,
                         type = "explosion"
                       },
                       type = "damage"
@@ -88,7 +88,7 @@ local howitzer_projectile = {
                   },
                   type = "instant"
                 },
-                radius = 4,
+                radius = 6,
                 type = "area"
               },
               type = "nested-result"
