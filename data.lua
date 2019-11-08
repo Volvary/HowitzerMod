@@ -21,6 +21,23 @@ function copyPrototype(type, name, newName)
   return p
 end
 
+function setScale(array, scaleRatio)
+	for i,v in ipairs(array) do
+		if v.hr_version ~= nil then
+			if v.hr_version.scale ~= nil then
+				v.hr_version.scale = v.hr_version.scale * scaleRatio
+			else
+				v.hr_version.scale = scaleRatio
+			end
+		end
+		
+		if v.scale ~= nil then
+			v.scale = v.scale * scaleRatio
+		else
+			v.scale = scaleRatio
+		end
+	end
+end
 
 howitzer_cannon = copyPrototype("ammo-turret","gun-turret","howitzer-cannon")
 howitzer_cannon.attack_parameters.ammo_category = "howitzer-shell"
@@ -29,6 +46,28 @@ howitzer_cannon.attack_parameters.range = 50
 howitzer_cannon.attack_parameters.turn_range = 0.25
 howitzer_cannon.attack_parameters.cooldown = 450
 howitzer_cannon.turret_base_has_direction = true
+
+howitzer_cannon.projectile_creation_distance = 500
+
+setScale(howitzer_cannon.attacking_animation, 1.5)
+setScale(howitzer_cannon.base_picture.layers, 1.5)
+setScale(howitzer_cannon.folded_animation.layers, 1.5)
+setScale(howitzer_cannon.folding_animation.layers, 1.5)
+setScale(howitzer_cannon.prepared_animation.layers, 1.5)
+setScale(howitzer_cannon.preparing_animation.layers, 1.5)
+
+howitzer_cannon.collision_box = {
+        {
+          -1.05,
+          -1.05
+        },
+        {
+          1.05,
+          1.05
+        }
+      }
+
+
 
 howitzer_item = copyPrototype("item","gun-turret","howitzer-cannon")
 
