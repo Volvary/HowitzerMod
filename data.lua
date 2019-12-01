@@ -260,7 +260,7 @@ data:extend({
   {
     type = "recipe",
     name = "howitzer-turret-recipe",
-    enabled = "true",
+    enabled = "false",
     ingredients =
     {
       {"engine-unit", 3},
@@ -274,7 +274,7 @@ data:extend({
   {
     type = "recipe",
     name = "howitzer-shell",
-    enabled = "true",
+    enabled = "flase",
     ingredients =
     {
       {"explosives", 2},
