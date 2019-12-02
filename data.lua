@@ -274,7 +274,7 @@ data:extend({
   {
     type = "recipe",
     name = "howitzer-shell",
-    enabled = "flase",
+    enabled = "false",
     ingredients =
     {
       {"explosives", 2},
