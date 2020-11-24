@@ -1,0 +1,10 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+Date: 2020.09.09
+  Optimisations:
+    - Quick update to prevent very specific mods keeping vanilla technologies all for themselves in the data.lua stage.
+---------------------------------------------------------------------------------------------------
+Version: 0.2.2
+Date: 2020.09.09
+  Optimisations:
+    - Added a Reset Technology code to fix integrating the mod mid-game and not getting retroactive bonuses to the Howitzer's damage and speed.
