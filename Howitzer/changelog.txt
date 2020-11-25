@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.5
+Date: 2020.11.24
+  Optimisations:
+    - Further protected against other mods changing the techs and breaking the progression of turret damage.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.4
 Date: 2020.09.09
   Optimisations:

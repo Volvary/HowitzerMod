@@ -1,85 +1,75 @@
--- Check in case another mod decided to break the effects of other mods on vanilla technologies...
--- local effects = data.raw.technology["physical-projectile-damage-5"].effects
--- local effectFound = false
--- for index, effect in pairs(effects) do
---     if( effect.ammo_category == "howitzer-shell" ) then
---         effectFound = true
---     end
--- end
+-- Checks in case another mod decided to break the effects of other mods on vanilla technologies or overloads them without care...
 
--- if (effectFound ~= true) then
-
-
---     table.insert(data.raw.technology["physical-projectile-damage-5"].effects,{type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 0.9})
---     table.insert(data.raw.technology["physical-projectile-damage-6"].effects,{type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 1.3})
---     table.insert(data.raw.technology["physical-projectile-damage-7"].effects,{type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 1.0})
-
---     table.insert(data.raw.technology["weapon-shooting-speed-5"].effects,{type = "gun-speed", ammo_category = "howitzer-shell", modifier = 0.8})
---     table.insert(data.raw.technology["weapon-shooting-speed-6"].effects,{type = "gun-speed", ammo_category = "howitzer-shell", modifier = 1.5}) 
--- end
-
-function FindBiggestResearch(start, researchName){
-    local it = start
+function FindBiggestResearch(researchName)
     local biggestFound = -1
-    while (true){
-        if (data.raw.technology[researchName + "-" + it] ~= nil){
-            biggestFound = it
-        } else{
-            break
-        }
-    }
-    return it
-}
 
-function AddEffectToResearch(researchName, effectToAdd){
+    for name, tech in pairs(data.raw.technology) do
+        local Found = -1
+        if string.find(name, researchName) then
+            if string.sub(name,-3,-3) == "-" then
+                Found = tonumber(string.sub(name, -2))
+            else
+                Found = tonumber(string.sub(name, -1))
+            end
+
+            if Found > biggestFound then
+                biggestFound = Found
+            end
+        end
+    end
+
+    return biggestFound
+end
+
+function AddEffectToResearch(researchName, effectToAdd)
     local tech = data.raw.technology[researchName]
-    if(tech ~= nil){
+    if(tech ~= nil) then
         local effectFound = false
-        for index, effect in pairs(effects) do
+        for index, effect in pairs(tech.effects) do
             if( effect.ammo_category == "howitzer-shell" ) then
                 effectFound = true
             end
         end
-        if(effectFound == false){
+        if(effectFound == false) then
             table.insert(tech.effects, effectToAdd)
-        }
-    }
-}
+        end
+    end
+end
 
-local biggestDamage = FindBiggestResearch(5, "physical-projectile-damage")
-local biggestSpeed = FindBiggestResearch(5, "weapon-shooting-speed")
+local biggestDamage = FindBiggestResearch("physical%-projectile%-damage")
+local biggestSpeed = FindBiggestResearch("weapon%-shooting%-speed")
 
-if (biggestDamage ~= -1){
-    local effectToAdd = {type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 0.9}
+if (biggestDamage ~= -1) then
+    local effectToAdd =  {type = "ammo-damage", ammo_category = "howitzer-shell", modifier = 0.9}
     
-    if(biggestDamage >= 5){
+    if(biggestDamage >= 5)  then
         effectToAdd.modifier = 0.9
         AddEffectToResearch("physical-projectile-damage-5", effectToAdd)
-    }
-    if(biggestDamage >= 6){
+    end
+    if(biggestDamage >= 6) then
         effectToAdd.modifier = 1.3
         AddEffectToResearch("physical-projectile-damage-6", effectToAdd)
-    }
+    end
 
     effectToAdd.modifier = 1.0
     for i= 7, biggestDamage do
-        AddEffectToResearch("physical-projectile-damage-"+i, effectToAdd)
+        AddEffectToResearch("physical-projectile-damage-" .. tostring(i), effectToAdd)
     end
-}
+end
 
-if(biggestSpeed ~= -1){
-    local effectToAdd = {type = "gun-speed", ammo_category = "howitzer-shell", modifier = 0.8}
+if(biggestSpeed ~= -1) then
+    local effectToAdd =  {type = "gun-speed", ammo_category = "howitzer-shell", modifier = 0.8}
 
-    if(biggestSpeed >= 5){
+    if(biggestSpeed >= 5) then
         AddEffectToResearch("weapon-shooting-speed-5", effectToAdd)
-    }
-    if(biggestSpeed >= 6){
+    end
+    if(biggestSpeed >= 6) then
         effectToAdd.modifier = 1.5
         AddEffectToResearch("weapon-shooting-speed-6", effectToAdd)
-    }
+    end
 
     effectToAdd.modifier = 1.0
     for i= 7, biggestDamage do
-        AddEffectToResearch("weapon-shooting-speed-"+i, effectToAdd)
+        AddEffectToResearch("weapon-shooting-speed-" .. tostring(i), effectToAdd)
     end
-}
+end

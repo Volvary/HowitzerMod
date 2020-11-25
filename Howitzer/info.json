@@ -1,10 +1,10 @@
 {
 	"name":"Howitzer",
 	"author":"volvary",
-	"version":"0.2.4",
+	"version":"0.2.5",
 	"title":"Howitzer Cannon",
 	"homepage":"",
-	"description":"Medium-range base defense, available as an in-between until you unlock artillery. First version, please alert me of any issue!",
+	"description":"Medium-range base defense, available as an in-between until you unlock artillery. Now with a second, mass-clearing version, the Howitzer MK2 available for softening late game waves.",
 	"dependencies": ["base"],
   "factorio_version": "1.0"
 }
